@@ -1,7 +1,9 @@
 {
   "name": "astro-commit",
+  "description": "A CLI tool to commit your changes to astro with conventional commits",
   "version": "1.0.0",
   "main": "index.js",
+  "bin": "index.js",
   "type": "module",
   "scripts": {
     "commit": "node index.js",
@@ -10,7 +12,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@inquirer/prompts": "^5.3.8"
   },

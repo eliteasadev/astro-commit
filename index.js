@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import { input, select } from "@inquirer/prompts";
+import { confirm, input, select } from "@inquirer/prompts";
 import { exec } from "child_process";
 
 async function commit() {
-  const  type  = await select({
-    message: "Select a package manager",
+  const type = await select({
+    message: "¿Qué tipo de cambio quieres realizar?",
     loop: false,
     choices: [
       { name: "feat:  Una nueva característica", value: "feat" },
@@ -30,15 +30,15 @@ async function commit() {
     ],
   });
 
-  const  scope = await input({
+  const scope = await input({
     message: "¿Cuál es el ámbito del cambio? (opcional)",
-  })
+  });
 
-  const  description  = await input({
+  const description = await input({
     message: "¿Cuál es la descripción del cambio?",
   });
 
-  const  footer  = await input({
+  const footer = await input({
     message: "¿Hay algún pie de página? (opcional)",
   });
 
@@ -46,21 +46,26 @@ async function commit() {
     footer ? `\n\n${footer}` : ""
   }`;
 
-  console.log("\nTu mensaje de commit es:\n");
-  console.log(commitMessage);
+  const confirmCommit = await confirm({
+    message: `¿Confirmas que quieres realizar el commit?`,
+    name: "confirmCommit",
+    default: false,
+  });
 
-  // Ejecutar el comando de commit
-  exec(`git commit -m "${commitMessage}"`, (err, stdout, stderr) => {
-    if (err) {
-      console.error(`Error al realizar el commit: ${stderr}`)
-      return
-    }
-    console.log(`Commit realizado: ${stdout}`)
-  })
-  
+  if (confirmCommit) {
+    // Ejecutar el comando de commit
+    exec(`git commit -m "${commitMessage}"`, (err, stdout, stderr) => {
+      if (err) {
+        console.error(`Error al realizar el commit: ${stderr}`);
+        return;
+      }
+      console.log(`Commit realizado: ${stdout}`);
+    });
+  }else {
+    console.log("Commit cancelado");
+  }
 }
 
 commit().catch((error) => {
   console.error("Error:", error);
 });
-

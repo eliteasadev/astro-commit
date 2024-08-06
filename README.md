@@ -2,7 +2,7 @@
 
 ## Configuración de la herramienta
 ### Instalación con curl (recomendado)
-1. Ejecuta el siguiente comando en la terminal:
+1. Ejecuta el siguiente comando en la terminal estando en la raíz del proyecto:
 ```bash
 curl https://raw.githubusercontent.com/eliteasadev/astro-commit/main/index.js >> astro-commit.js 
 ```
